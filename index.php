@@ -332,7 +332,7 @@ $result = $object->get_result();
       </section>
       <!--End Fun Fact Section -->
       <!-- schedule Section -->
-      <section class="schedule-section">
+      <section class="schedule-section" id="timeline">
         <div class="anim-icons">
           <span class="icon icon-circle-4 wow zoomIn"></span>
           <span class="icon icon-circle-3 wow zoomIn"></span>
@@ -432,14 +432,11 @@ $result = $object->get_result();
 
 												}
 										}
-								
-									
 								}
 							?>
 							</div>
 							</div>
-						<?php } 
-					?>
+						<?php } ?>
             </div>
           </div>
         </div>

@@ -31,7 +31,7 @@ include('header.php');
 			      				<th>Appointment Time</th>
 			      				<th>Appointment Day</th>
 			      				<th>Appointment Status</th>
-			      				<th>Download</th>
+			      				<th>Meet Link</th>
 			      				<th>Cancel</th>
 			      			</tr>
 			      		</thead>

@@ -435,7 +435,7 @@ if(isset($_POST["action"]))
 			{
 				$status = 'Waiting';
 			}
-			
+			$generate_meet_link = rand(100000,999999);
 			$data = array(
 				':doctor_id'				=>	$_POST['hidden_doctor_id'],
 				':patient_id'				=>	$_SESSION['patient_id'],
@@ -443,13 +443,14 @@ if(isset($_POST["action"]))
 				':appointment_number'		=>	$appointment_number,
 				':reason_for_appointment'	=>	$_POST['reason_for_appointment'],
 				':appointment_time'			=>	$appointment_time,
-				':status'					=>	'Booked'
+				':status'					=>	'Booked',
+				':meet_link'				=>	$generate_meet_link
 			);
 
 			$object->query = "
 			INSERT INTO appointment_table 
-			(doctor_id, patient_id, doctor_schedule_id, appointment_number, reason_for_appointment, appointment_time, status) 
-			VALUES (:doctor_id, :patient_id, :doctor_schedule_id, :appointment_number, :reason_for_appointment, :appointment_time, :status)
+			(doctor_id, patient_id, doctor_schedule_id, appointment_number, reason_for_appointment, appointment_time, status, meet_link) 
+			VALUES (:doctor_id, :patient_id, :doctor_schedule_id, :appointment_number, :reason_for_appointment, :appointment_time, :status, :meet_link)
 			";
 
 			$object->execute($data);
@@ -561,7 +562,7 @@ if(isset($_POST["action"]))
 
 			$sub_array[] = $status;
 
-			$sub_array[] = '<a href="download.php?id='.$row["appointment_id"].'" class="btn btn-danger btn-sm" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>';
+			$sub_array[] = '<a href="https://testing.ashik.pw/meeting/'.$row["meet_link"].'" class="btn btn-danger btn-sm" target="_blank"><i class="fas fa-video-camera"></i>Talk to Doctor</a>';
 
 			$sub_array[] = '<button type="button" name="cancel_appointment" class="btn btn-danger btn-sm cancel_appointment" data-id="'.$row["appointment_id"].'"><i class="fas fa-times"></i></button>';
 
