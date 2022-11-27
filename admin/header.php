@@ -179,7 +179,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="user_profile_name"><?php echo $user_name; ?></span>
                                 <img class="img-profile rounded-circle"
-                                    src="<?php echo $user_profile_image; ?>" id="user_profile_image">
+                                    src="<?php echo "../".$user_profile_image; ?>" id="user_profile_image">
                             </a>
                             <!-- Dropdown - User Information -->
                             <?php

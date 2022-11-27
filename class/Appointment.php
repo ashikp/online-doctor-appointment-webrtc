@@ -4,11 +4,13 @@
 
 class Appointment
 {
-	public $base_url = 'http://localhost/sdp';
+	public $base_url = 'http://localhost/sdp/';
 	public $connect;
 	public $query;
 	public $statement;
 	public $now;
+
+	
 
 	public function __construct()
 	{
@@ -19,6 +21,23 @@ class Appointment
 		session_start();
 
 		$this->now = date("Y-m-d H:i:s",  STRTOTIME(date('h:i:sa')));
+	}
+	function GetDepartmentName($id){
+		$this->query = "SELECT * FROM doctor_department WHERE department_id = '$id'";
+		$this->statement = $this->connect->prepare($this->query);
+		$this->statement->execute();
+		$result = $this->statement->fetchAll();
+		foreach($result as $row){
+			return $row['department_name'];
+		}
+	}
+
+	function GetDoctorListByDepartment( $id ){
+		$this->query = "SELECT * FROM doctor_table INNER JOIN doctor_department on doctor_table.doctor_expert_in = doctor_department.department_id WHERE department_id = '$id'";
+		$this->statement = $this->connect->prepare($this->query);
+		$this->statement->execute();
+		$result = $this->statement->fetchAll();
+		return json_encode($result);
 	}
 
 	function execute($data = null)

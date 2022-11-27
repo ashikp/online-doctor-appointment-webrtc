@@ -14,8 +14,7 @@ if(isset($_POST["action"]))
 
 		$output = array();
 
-		$main_query = "
-		SELECT * FROM doctor_table ";
+		$main_query = "SELECT * FROM doctor_table INNER JOIN doctor_department ON doctor_table.doctor_expert_in = doctor_department.department_id ";
 
 		$search_query = '';
 
@@ -26,8 +25,8 @@ if(isset($_POST["action"]))
 			$search_query .= 'OR doctor_phone_no LIKE "%'.$_POST["search"]["value"].'%" ';
 			$search_query .= 'OR doctor_date_of_birth LIKE "%'.$_POST["search"]["value"].'%" ';
 			$search_query .= 'OR doctor_degree LIKE "%'.$_POST["search"]["value"].'%" ';
-			$search_query .= 'OR doctor_expert_in LIKE "%'.$_POST["search"]["value"].'%" ';
 			$search_query .= 'OR doctor_status LIKE "%'.$_POST["search"]["value"].'%" ';
+			$search_query .= 'OR department_name LIKE "%'.$_POST["search"]["value"].'%" ';
 		}
 
 		if(isset($_POST["order"]))
@@ -47,6 +46,7 @@ if(isset($_POST["action"]))
 		}
 
 		$object->query = $main_query . $search_query . $order_query;
+		
 
 		$object->execute();
 
@@ -67,12 +67,12 @@ if(isset($_POST["action"]))
 		foreach($result as $row)
 		{
 			$sub_array = array();
-			$sub_array[] = '<img src="'.$row["doctor_profile_image"].'" class="img-thumbnail" width="75" />';
+			$sub_array[] = '<img src="../'.$row["doctor_profile_image"].'" class="img-thumbnail" width="75" />';
 			$sub_array[] = $row["doctor_email_address"];
 			$sub_array[] = $row["doctor_password"];
 			$sub_array[] = $row["doctor_name"];
 			$sub_array[] = $row["doctor_phone_no"];
-			$sub_array[] = $row["doctor_expert_in"];
+			$sub_array[] = $row["department_name"];
 			$status = '';
 			if($row["doctor_status"] == 'Active')
 			{
@@ -156,7 +156,7 @@ if(isset($_POST["action"]))
 			else
 			{
 				$character = $_POST["doctor_name"][0];
-				$path = "../images/". time() . ".png";
+				$path = "images/". time() . ".png";
 				$image = imagecreate(200, 200);
 				$red = rand(0, 255);
 				$green = rand(0, 255);
@@ -278,7 +278,7 @@ if(isset($_POST["action"]))
 			    {
 			    	$new_name = rand() . '.' . $file_extension;
 
-					$destination = '../images/' . $new_name;
+					$destination = 'images/' . $new_name;
 
 					move_uploaded_file($_FILES['doctor_profile_image']['tmp_name'], $destination);
 

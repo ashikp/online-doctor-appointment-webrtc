@@ -6,6 +6,10 @@ include('../class/Appointment.php');
 
 $object = new Appointment;
 
+$object-> query = "SELECT * FROM `doctor_department`";
+
+$getdepartment = $object->get_result();
+
 if(!$object->is_login())
 {
     header("location:".$object->base_url."admin");
@@ -117,7 +121,14 @@ include('header.php');
                             </div>
                             <div class="col-md-6">
                                 <label>Doctor Speciality <span class="text-danger">*</span></label>
-                                <input type="text" name="doctor_expert_in" id="doctor_expert_in" class="form-control" required  data-parsley-trigger="keyup" />
+								<select class="form-control" id="doctor_expert_in" name="doctor_expert_in" required aria-label="Doctor Department">
+									<option selected>Select One</option>
+									<?php 
+										foreach($getdepartment as $row){
+											echo '<option value="'.$row['department_id'].'">'.$row['department_name'].'</option>';
+										}
+									?>
+								</select>
                             </div>
                         </div>
                     </div>
@@ -213,7 +224,7 @@ $(document).ready(function(){
 				dataType:'json',
                 contentType: false,
                 cache: false,
-                processData:false,
+                processData:true,
 				beforeSend:function()
 				{
 					$('#submit_button').attr('disabled', 'disabled');
@@ -270,7 +281,7 @@ $(document).ready(function(){
                 $('#doctor_email_address').val(data.doctor_email_address);
                 $('#doctor_password').val(data.doctor_password);
                 $('#doctor_name').val(data.doctor_name);
-                $('#uploaded_image').html('<img src="'+data.doctor_profile_image+'" class="img-fluid img-thumbnail" width="150" />')
+                $('#uploaded_image').html('<img src="../'+data.doctor_profile_image+'" class="img-fluid img-thumbnail" width="150" />')
                 $('#hidden_doctor_profile_image').val(data.doctor_profile_image);
                 $('#doctor_phone_no').val(data.doctor_phone_no);
                 $('#doctor_address').val(data.doctor_address);
@@ -351,7 +362,7 @@ $(document).ready(function(){
                 var html = '<div class="table-responsive">';
                 html += '<table class="table">';
 
-                html += '<tr><td colspan="2" class="text-center"><img src="'+data.doctor_profile_image+'" class="img-fluid img-thumbnail" width="150" /></td></tr>';
+                html += '<tr><td colspan="2" class="text-center"><img src="../'+data.doctor_profile_image+'" class="img-fluid img-thumbnail" width="150" /></td></tr>';
 
                 html += '<tr><th width="40%" class="text-right">Doctor Email Address</th><td width="60%">'+data.doctor_email_address+'</td></tr>';
 
@@ -366,7 +377,7 @@ $(document).ready(function(){
                 html += '<tr><th width="40%" class="text-right">Doctor Date of Birth</th><td width="60%">'+data.doctor_date_of_birth+'</td></tr>';
                 html += '<tr><th width="40%" class="text-right">Doctor Qualification</th><td width="60%">'+data.doctor_degree+'</td></tr>';
 
-                html += '<tr><th width="40%" class="text-right">Doctor Speciality</th><td width="60%">'+data.doctor_expert_in+'</td></tr>';
+                html += '<tr><th width="40%" class="text-right">Doctor Speciality</th><td width="60%">'+data.department_name+'</td></tr>';
 
                 html += '</table></div>';
 
