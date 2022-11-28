@@ -435,7 +435,7 @@ if(isset($_POST["action"]))
 			{
 				$status = 'Waiting';
 			}
-			$generate_meet_link = rand(100000,999999);
+			$generate_meet_link = $object->CreateMeetLink();
 			$data = array(
 				':doctor_id'				=>	$_POST['hidden_doctor_id'],
 				':patient_id'				=>	$_SESSION['patient_id'],
@@ -562,7 +562,7 @@ if(isset($_POST["action"]))
 
 			$sub_array[] = $status;
 
-			$sub_array[] = '<a href="https://testing.ashik.pw/meeting/'.$row["meet_link"].'" class="btn btn-danger btn-sm" target="_blank"><i class="fas fa-video-camera"></i>Talk to Doctor</a>';
+			$sub_array[] = '<a href="https://testing.ashik.pw/meeting/'.$row["meet_link"].'?username='.$_SESSION["patient_name"].'" class="btn btn-danger btn-sm" target="_blank"><i class="fas fa-video-camera"></i>Talk to Doctor</a>';
 
 			$sub_array[] = '<button type="button" name="cancel_appointment" class="btn btn-danger btn-sm cancel_appointment" data-id="'.$row["appointment_id"].'"><i class="fas fa-times"></i></button>';
 

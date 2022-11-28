@@ -168,7 +168,7 @@ if(isset($_POST["action"]))
 			}
 
 			$sub_array[] = $status;
-			$sub_array[] = '<a href="https://testing.ashik.pw/meeting/'.$row["meet_link"].'" class="btn btn-danger btn-sm" target="_blank"><i class="fas fa-video-camera"></i>Talk to Patient</a>';
+			$sub_array[] = '<a href="https://testing.ashik.pw/meeting/'.$row["meet_link"].'?username='.$row['doctor_name'].'" class="btn btn-danger btn-sm" target="_blank"><i class="fas fa-video-camera"></i>Talk to Patient</a>';
 			$sub_array[] = '
 			<div align="center">
 			<button type="button" name="view_button" class="btn btn-info btn-circle btn-sm view_button" data-id="'.$row["appointment_id"].'"><i class="fas fa-eye"></i></button>

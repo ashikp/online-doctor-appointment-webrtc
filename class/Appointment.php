@@ -63,6 +63,21 @@ class Appointment
 		return $this->statement->fetchAll();
 	}
 
+	function CreateMeetLink(){
+		//Get content from page
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, 'https://testing.ashik.pw/gMeeting');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+		$headers = array();
+		$headers[] = 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36';
+		$headers[] = 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9';
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		$result = curl_exec($ch);
+		return $result;
+
+	}
+
 	function get_result()
 	{
 		return $this->connect->query($this->query, PDO::FETCH_ASSOC);
