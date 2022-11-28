@@ -5,8 +5,13 @@ $object = new Appointment;
 
 if(isset($_GET['token'])){
     $token = $_GET['token'];
-    $object->query = "INSERT INTO emgr (token, expire) VALUES ('$token', '20')";
-    $object->execute();
+    echo $token;
+//     $data = array(
+//         ':token' => $token,
+//         ':expire' => 20
+//     );
+//     $object->query = "INSERT INTO emgr (token, expire) VALUES (:token, :expire)";
+//     $object->execute($data);
 }
 
 

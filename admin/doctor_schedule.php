@@ -13,10 +13,28 @@ if(!$object->is_login())
 
 include('header.php');
 
+$object->query = "SELECT *, MAX(start) as recent FROM emgr";
+$result = $object->get_result();
+foreach($result as $data)
+{
+    $token = $data['token'];
+    $expire = $data['expire'];
+}
 ?>
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Doctor Schedule Management</h1>
+                    <?php if($_SESSION['type']== 'Doctor'){ 
+                        echo '<script> $(function() {
+                            setTimeout(function() { $("#emgr").fadeOut('.$expire.'); }, 5000)
+                            
+                            })</script>';
+                        ?>
+                        <div id="emgr" class="alert alert-danger" role="alert">
+                            A Patient Need Urgent Support Please Check <a href="https://testing.ashik.pw/meeting/<?php echo $token; ?>?username=<?php echo $_SESSION['Logged']; ?>" class="alert-link">Emergency Management</a>
+                        </div>
+                    <?php } ?>
+
 
                     <!-- DataTales Example -->
                     <span id="message"></span>
@@ -374,6 +392,7 @@ $(document).ready(function(){
 
     	}
 	});
+
 
 	$(document).on('click', '.delete_button', function(){
 
